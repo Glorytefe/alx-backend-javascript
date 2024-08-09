@@ -1,6 +1,13 @@
-import ClassRoom from './0-classroom';
+import ClassRoom from "./0-classroom";
+
+/**
+ * initializes room
+ */
 
 export default function initializeRooms() {
-  const createRoom = (num) => new ClassRoom(num);
-  return [createRoom(19), createRoom(20), createRoom(24)];
+  /**
+   * initializes room
+   * @returns a list of room
+   */
+  return [19, 20, 34].map((size) => new ClassRoom(size));
 }
