@@ -1,6 +1,5 @@
 export default class Currency {
-
-   /**
+  /**
    * @param {String} code
    * @param {String} name
    */
