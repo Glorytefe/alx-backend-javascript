@@ -36,7 +36,3 @@ export default class Airport {
     return this._code;
   }
 }
-
-const airportSF = new Airport('San Francisco Airport', 'SFO');
-console.log(airportSF);
-console.log(airportSF.toString());
