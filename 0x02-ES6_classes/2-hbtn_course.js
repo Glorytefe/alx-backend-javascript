@@ -3,9 +3,9 @@
  */
 export default class HolbertonCourse {
   /**
-   * @param name (string)
-   * @param length (Number)
-   * @param students (array of Strings)
+   * @param {String} name
+   * @param {Number} length
+   * @param {String[]} students
    */
   constructor(name, length, students) {
     this._name = name;
@@ -21,7 +21,6 @@ export default class HolbertonCourse {
   }
 
   /**
-   * @param value
    * sets the value of name
    */
   set name(value) {
@@ -40,7 +39,6 @@ export default class HolbertonCourse {
   }
 
   /**
-   * @param value
    * sets the value of length
    */
   set length(value) {
@@ -59,12 +57,11 @@ export default class HolbertonCourse {
   }
 
   /**
-   * @param value
    * sets the value of students
    */
   set students(value) {
     if (
-      Array.isArray(value)
+      value instanceof Array
       && value.every((student) => typeof student === 'string')
     ) {
       this._students = value;
