@@ -36,7 +36,7 @@ export default class HolbertonCourse {
    * returns the value of students
    */
   get length() {
-    return this.length;
+    return this._length;
   }
 
   /**
@@ -55,7 +55,7 @@ export default class HolbertonCourse {
     /**
      * returns the value of students
      */
-    return this.students;
+    return this._students;
   }
 
   /**
