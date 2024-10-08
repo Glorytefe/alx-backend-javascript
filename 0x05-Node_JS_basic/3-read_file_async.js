@@ -1,36 +1,34 @@
 const fs = require('fs');
 
-const countStudents = (dataPath) => {
-  return new Promise((resolve, reject) => {
-    // Read the file asynchronously
-    fs.readFile(dataPath, 'utf-8', (err, data) => {
-      if (err) {
-        // Reject if the file cannot be read
-        reject(new Error('Cannot load the database'));
+const countStudents = (dataPath) => new Promise((resolve, reject) => {
+  // Read the file asynchronously
+  fs.readFile(dataPath, 'utf-8', (err, data) => {
+    if (err) {
+      // Reject if the file cannot be read
+      reject(new Error('Cannot load the database'));
+      return;
+    }
+
+    // Process the file data if available
+    if (data) {
+      const fileLines = data.trim().split('\n').filter((line) => line); // Filter out any empty lines
+
+      // Ensure the file has more than just the header
+      if (fileLines.length <= 1) {
+        reject(new Error('No valid data in the file'));
         return;
       }
 
-      // Process the file data if available
-      if (data) {
-        const fileLines = data.trim().split('\n').filter((line) => line); // Filter out any empty lines
+      const studentGroups = {};
+      const header = fileLines[0].split(','); // The header (column names)
+      const fieldIdx = header.length - 1; // The index of the field (last column)
 
-        // Ensure the file has more than just the header
-        if (fileLines.length <= 1) {
-          reject(new Error('No valid data in the file'));
-          return;
-        }
+      // Process each student record
+      for (const line of fileLines.slice(1)) {
+        const studentData = line.split(',');
 
-        const studentGroups = {};
-        const header = fileLines[0].split(','); // The header (column names)
-        const fieldIdx = header.length - 1; // The index of the field (last column)
-
-        // Process each student record
-        for (const line of fileLines.slice(1)) {
-          const studentData = line.split(',');
-
-          // Skip lines that don't match the column count
-          if (studentData.length !== header.length) continue;
-
+        // Skip lines that don't match the column count
+        if (studentData.length === header.length) {
           const field = studentData[fieldIdx]; // Get the student's field
           const firstName = studentData[0]; // Assuming the first column is the first name
 
@@ -53,8 +51,8 @@ const countStudents = (dataPath) => {
         // Resolve the promise
         resolve(true);
       }
-    });
+    }
   });
-};
+});
 
 module.exports = countStudents;

@@ -24,28 +24,31 @@ const countStudents = (dataPath) => {
     for (const line of lines.slice(1)) {
       const studentData = line.split(',');
 
-      // Skip lines that don't have the correct number of columns
-      if (studentData.length !== header.length) continue;
+      // checks that lines  have the correct number of columns
+      if (studentData.length === header.length) {
+        const field = studentData[fieldsIdx]; // Get the student's field
+        const firstName = studentData[0]; // Assuming the first column is the first name
 
-      const field = studentData[fieldsIdx]; // Get the student's field
-      const firstName = studentData[0]; // Assuming the first column is the first name
-
-      // Initialize the field group if it doesn't exist
-      if (!studentGroups[field]) {
-        studentGroups[field] = [];
+        // Initialize the field group if it doesn't exist
+        if (!studentGroups[field]) {
+          studentGroups[field] = [];
+        }
+        studentGroups[field].push(firstName); // Add the student's first name to the group
       }
-      studentGroups[field].push(firstName); // Add the student's first name to the group
+
+      // Output the total number of students
+      const totalStudents = Object.values(studentGroups).flat().length;
+      console.log(`Number of students: ${totalStudents}`);
+
+      // Output the number of students per field and their names
+      for (const [field, students] of Object.entries(studentGroups)) {
+        console.log(
+          `Number of students in ${field}: ${
+            students.length
+          }. List: ${students.join(', ')}`,
+        );
+      }
     }
-
-    // Output the total number of students
-    const totalStudents = Object.values(studentGroups).flat().length;
-    console.log(`Number of students: ${totalStudents}`);
-
-    // Output the number of students per field and their names
-    for (const [field, students] of Object.entries(studentGroups)) {
-      console.log(`Number of students in ${field}: ${students.length}. List: ${students.join(', ')}`);
-    }
-
   } catch (error) {
     throw new Error('Cannot load the database');
   }

@@ -20,7 +20,7 @@ const countStudents = (dataPath) => new Promise((resolve, reject) => {
       reject(new Error('Cannot load the database'));
     } else {
       const reportParts = [];
-      const fileLines = data.trim().split('\n').filter(line => line);
+      const fileLines = data.trim().split('\n').filter((line) => line);
 
       // Process the CSV file if it has data
       if (fileLines.length > 1) {
@@ -47,7 +47,7 @@ const countStudents = (dataPath) => new Promise((resolve, reject) => {
         reportParts.push(`Number of students: ${totalStudents}`);
         for (const [field, students] of Object.entries(studentGroups)) {
           reportParts.push(
-            `Number of students in ${field}: ${students.length}. List: ${students.join(', ')}`
+            `Number of students in ${field}: ${students.length}. List: ${students.join(', ')}`,
           );
         }
       }
